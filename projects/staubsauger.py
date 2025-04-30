@@ -96,15 +96,15 @@ def search(start):
             return path[::-1], counter
 
         # Hier werden neue Zustände der Warteschlange hinzugefügt
-        for dx, dy in [(-1, 0), (-1,-1), (-1,1), (1, 0), (1,1), (1,-1), (0, -1), (0, 1)]:
+        for dx, dy in [(-1, 0), (-1,-1), (-1,1), (1, 0), (1,1), (1,-1), (0, -1), (0, 1)]: #(alle Zustände, die hinzugefügt werden dürfen)
             x, y = current.x + dx, current.y + dy
             # Hier wird überprüft, ob der neue Zustand in die Warteschlange kommt
-            if x < 0 or x >= cols or y < 0 or y >= rows:
+            if x < 0 or x >= cols or y < 0 or y >= rows: #(Zustand prüfen ob zielkoordinate auf dem Spielbrett ist oder nicht, wenn i)
                 # Zustand ist nicht auf dem Spielbrett
                 continue
             # Hier können Sie eine Heuristik definieren
             heuristic_value = 0
-            if (x, y) in visited:
+            if (x, y) in visited: #(wenn wir dort warenüberspringen wir das)
                 continue
             if (x, y) in current.d:
                 # Zustand ist Dreck, wir haben also ein gesaugt
