@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiefensuche</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+</head>
+<body onload="loadTreeData('../trees/tree0.json',maxTreeDepth=3);hideGraph()">
+    <div class="container">
+        <div class="sidebar">
+            <h2>Tiefensuche</h2>
+            <p>
+                Die Tiefensuche (DFS) ist ein Algorithmus zur Durchsuchung oder Traversierung eines Baumes oder Graphen.
+                Im Gegensatz zur Breitensuche geht DFS so tief wie möglich in eine Richtung, bevor es zurückgeht und andere Pfade erkundet.
+            </p>
+            <h3>Einführungsbeispiel</h3><button class="link button" onclick="loadTreeData('../trees/tree0.json',maxTreeDepth=3);hideGraph()">Einführungsbeispiel laden</button>
+            <div class="banner">
+                Die <b>Tiefensuche</b> (Depth-First Search, DFS) durchsucht einen Graphen, indem sie so tief wie möglich in einen Pfad eintaucht, bevor sie zurückgeht und alternative Wege erkundet.
+            </div>
+            <p>
+                Beispiel anhand des gegebenen Baumes:
+                Der Baum beginnt mit dem Startknoten S (1).
+                Die DFS erkundet den Baum in folgender Reihenfolge:
+            </p>
+            <ol>
+                <li>Starte bei S und markiere ihn als besucht.</li>
+                <li>Wähle einen Nachbarn von S – wir nehmen A.</li>
+                <li>Gehe weiter in die Tiefe zu C (ein Kind von A).</li>
+                <li>Da C keine weiteren Kinder hat, gehe zurück zu A und besuche D.</li>
+                <li>Von D gehe weiter zu G (das Ziel).</li>
+            </ol>
+            <p>
+                Eine mögliche Reihenfolge der besuchten Knoten ist:
+                <span>S → A → C → D → G</span>
+            </p>
+            <p>
+                <b>Wichtig</b>: Die genaue Reihenfolge hängt davon ab, in welcher Reihenfolge die Kinder eines Knotens besucht werden
+            </p>
+            <h3>Eigenschaften</h3>
+            <ul>
+                <li>Geht so tief wie möglich: DFS folgt einem Pfad, bis es nicht mehr weitergeht, bevor es zurückkehrt.</li>
+                <li>Kein garantierter kürzester Pfad: Da DFS nicht systematisch alle Ebenen durchläuft, findet es nicht unbedingt den kürzesten Weg zum Ziel.</li>
+            </ul>
+            <h3>Beispiel 1</h3>
+            <button class="link button" onclick="loadTreeData('../trees/tree1.json',maxTreeDepth=3);hideGraph()">Beispiel 1 laden</button>
+            <h3>Übungen 1</h3>
+            <ol>
+                <li>Zeichnen Sie den Graphen, der aus welchem der dargestellte Baum abgeleitet werden könnte. Was fällt Ihnen auf?</li>
+                <button class="link button" onclick="loadGraphData('../trees/tree1.json')">Graphen laden</button>
+                <li>
+                    Der im Beispiel abgebildete Baum ist nicht vollständig, weil bereits einige Knoten gepruned wurden.
+                    Was passiert, wenn Sie im Graphen die Tiefensuche von S aus beginnen und als Regel immer den Knoten als nächstes öffnen, welcher im Alphabet zuerst kommt?
+                    Schalten Sie dazu beim Baum rechts Pruning aus.
+                </li>
+                <li>
+                    Was passiert, wenn Sie im Graphen die Tiefensuche von S aus beginnen und als Regel immer den Knoten als nächstes öffnen, welcher im Alphabet an zweiter Stelle kommt?
+                    Schalten Sie dazu beim Baum rechts Pruning aus.
+                </li>
+                <li>
+                    Falls Sie mit der Tiefensuche eine Lösung zum Ziel finden, ist es jeweils zwingend die kürzeste Lösung zum Ziel?
+                </li>
+                <li>
+                    Wann kann die Tiefensuche ohne Bedenken angewendet werden? Wann nicht?
+                </li>
+            </ol>
+            <a class="link button" href="../index.html">Zurück zum Menu</a>
+        </div>
+        <div class="content">
+            <h2>Baum</h2>
+            <div id="tree-container" class="canvas"></div>
+            <div class="options">
+                <div class="option-buttons">
+                    Tiefe: <span id="max-depth"></span>
+                    <button class="button" onclick="decreaseMaxDepth()">-</button>
+                    <button class="button" onclick="increaseMaxDepth()">+</button>
+                </div>
+                <div class="option-buttons">
+                    <button id="toggle-pruning" class="button" onclick="togglePruning()"></button>
+                </div>
+            </div>
+            <div id="graph-container" class="canvas" style="display:none;"></div>
+        </div>
+    </div>
+    <script src="../script.js"></script>
+</body>
+</html>
