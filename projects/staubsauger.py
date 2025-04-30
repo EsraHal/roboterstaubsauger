@@ -82,7 +82,7 @@ def search(start):
     queue = [start] # Wir beginnen mit dem Startzustand A1 (0,0)
     visited = set() # Welche Zustände wir bereits gesehen haben
     while queue:
-        current = queue.pop() # hier wird das Element von der Schlange genommen
+        current = queue.pop(0) # hier wird das Element von der Schlange genommen
         counter = counter + 1 # Wir zählen wie viele Zustände wir durchsuchen
         visited.add((current.x, current.y)) # Wenn wir einen Zustand untersuchen, fügen wir ihn zu visited hinzu
         draw_board(current,0)
