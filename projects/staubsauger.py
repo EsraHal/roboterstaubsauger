@@ -20,8 +20,8 @@ class Node:
         self.parent = parent # von welchem Knoten man gekommen ist
         self.d = d # Welcher dreck gesammelt wurde
         self.g = g # Kosten vom Start bis zum Knoten
-        self.h = 0 # Schätzung vom Knoten bis zum Ziel
-        self.f = 0 # Bewertungsfunktion des Knoten (üblicherweise in Abhängigkeit von g und h)
+        self.h = h # Schätzung vom Knoten bis zum Ziel
+        self.f = f # Bewertungsfunktion des Knoten (üblicherweise in Abhängigkeit von g und h)
 
 # Funktion für um zufälligen Dreck zu erzeugen
 def generate_dirt():
@@ -35,7 +35,7 @@ def generate_dirt():
 dirt = generate_dirt() # hier werden die Hindernisse generiert
 
 # Startposition festlegen
-start = Node(0, 0, d=dirt)
+start = Node(0, 0, d=dirt, h=len(dirt))
     
 # Funktion für um zufällige Hindernisse zu erzeugen (extra)
 obstacles = set()
@@ -83,6 +83,7 @@ def search(start):
     visited = set() # Welche Zustände wir bereits gesehen haben
     while queue:
         current = queue.pop(0) # hier wird das Element von der Schlange genommen
+        print(current.h)
         counter = counter + 1 # Wir zählen wie viele Zustände wir durchsuchen
         visited.add((current.x, current.y)) # Wenn wir einen Zustand untersuchen, fügen wir ihn zu visited hinzu
         draw_board(current,0)
@@ -103,7 +104,7 @@ def search(start):
                 # Zustand ist nicht auf dem Spielbrett
                 continue
             # Hier können Sie eine Heuristik definieren
-            heuristic_value = 0
+            heuristic_value = len(current.d)
             if (x, y) in visited: #(wenn wir dort warenüberspringen wir das)
                 continue
             if (x, y) in current.d:
@@ -119,7 +120,7 @@ def search(start):
             else: 
                 queue.append(Node(x, y, current, g=current.g + 1, h=heuristic_value, d=current.d))
         # Mit dieser Funktion können Sie die Liste der noch nicht besuchten Knoten sortieren:
-        # queue.sort(key=lambda n: n.h)
+        queue.sort(key=lambda n: n.h)
     return [], counter
 
 
